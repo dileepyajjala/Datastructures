@@ -1,0 +1,37 @@
+
+
+/*
+ * Complete the 'reverse' function below.
+ *
+ * The function is expected to return an INTEGER_SINGLY_LINKED_LIST.
+ * The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
+ */
+
+/*
+ * For your reference:
+ *
+ * SinglyLinkedListNode {
+ *     int data;
+ *     SinglyLinkedListNode* next;
+ * };
+ *
+ */
+
+SinglyLinkedListNode* reverse(SinglyLinkedListNode* llist) {
+    SinglyLinkedListNode *temp=llist,*newn=llist,*a;
+    if(llist==NULL){
+        return llist;
+    }
+    temp=temp->next;
+    while(temp->next)
+    {
+        a=temp->next;
+        temp->next=newn;
+        newn=temp;
+        temp=a;
+    }
+    temp->next=newn;
+    llist->next=NULL;
+    return temp;
+}
+
