@@ -1,0 +1,75 @@
+#include<stdio.h>
+
+char exp[100],stack[100],pos[100];
+int top=-1;
+int isempty()
+{
+	if(top==-1)
+	  return 1;
+	return 0;
+}
+void push(char ch)
+{
+	stack[++top]=ch;
+}
+char pop()
+{
+	if(!isempty())
+	   return stack[top--];
+	   
+}
+int isoperand(char ch){
+	return (ch>='a' && ch<='z')||(ch>='A' && ch<='Z');
+}
+int prec(char ch){
+	switch(ch)
+	{
+		case '+':
+		case '-':
+			return 1;
+		case '*':
+		case '/':
+			return 2;
+		case '^':
+			return 3;
+	}
+	return -1;
+}
+void infixtopostfix()
+{
+	int i,k;
+	for(i=0,k=-1;exp[i]!='\0';i++){
+		if(isoperand(exp[i]))
+		   pos[++k]=exp[i];
+		else if(exp[i]=='(')
+		   push(exp[i]);
+		else if(exp[i]==')')
+		{
+			while(!isempty() && stack[top]!='(')
+			      pos[++k]=pop();
+			top--;
+		}
+		else
+		{
+			while(!isempty() && prec(exp[i])<=prec(stack[top]))
+			      pos[++k]=pop();
+			push(exp[i]);
+		}
+	}
+	while(!isempty())
+	{
+		if(stack[top]!='(')
+		  pos[++k]=pop();
+	//	char ch=pop();
+	}
+	pos[++k]='\0';
+	printf("%s",pos);	
+	}
+
+int main()
+{
+	printf("Enter expression:");
+	scanf("%s",exp);
+	infixtopostfix();
+}
+  
