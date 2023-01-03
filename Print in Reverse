@@ -1,0 +1,40 @@
+
+
+/*
+ * Complete the 'reversePrint' function below.
+ *
+ * The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
+ */
+
+/*
+ * For your reference:
+ *
+ * SinglyLinkedListNode {
+ *     int data;
+ *     SinglyLinkedListNode* next;
+ * };
+ *
+ */
+
+void reversePrint(SinglyLinkedListNode* llist) {
+    SinglyLinkedListNode *temp=llist,*newn=llist,*a;
+    if(llist==NULL){
+        print_singly_linked_list(llist,"\n");
+    }
+    else {
+    temp=temp->next;
+    while(temp->next)
+    {
+        a=temp->next;
+        temp->next=newn;
+        newn=temp;
+        temp=a;
+    }
+    temp->next=newn;
+    llist->next=NULL;
+    }
+   while(temp){
+       printf("%d\n",temp->data);
+       temp=temp->next;
+   }
+} 
