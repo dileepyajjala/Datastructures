@@ -1,0 +1,52 @@
+
+
+/*
+ * Complete the 'sortedInsert' function below.
+ *
+ * The function is expected to return an INTEGER_DOUBLY_LINKED_LIST.
+ * The function accepts following parameters:
+ *  1. INTEGER_DOUBLY_LINKED_LIST llist
+ *  2. INTEGER data
+ */
+
+/*
+ * For your reference:
+ *
+ * DoublyLinkedListNode {
+ *     int data;
+ *     DoublyLinkedListNode* next;
+ *     DoublyLinkedListNode* prev;
+ * };
+ *
+ */
+
+DoublyLinkedListNode* sortedInsert(DoublyLinkedListNode* llist, int data) {
+    DoublyLinkedListNode* newn=create_doubly_linked_list_node(data),*temp,*a;
+if(llist==NULL) return newn;
+if(llist->data>data) 
+{
+    newn->next=llist;
+    llist->prev=newn;
+    return newn;
+}
+temp=llist;
+while(temp->next->data<data && temp->next->next)
+{
+    temp=temp->next;
+}
+if(temp->next->data<data)
+{
+    temp=temp->next;
+    temp->next=newn;
+    newn->prev=temp;
+    return llist;
+}
+a=temp->next;
+temp->next=newn;
+newn->prev=temp;
+newn->next=a;
+a->prev=newn;
+
+return llist;
+}
+
