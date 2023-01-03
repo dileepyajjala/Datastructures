@@ -1,0 +1,67 @@
+#include<stdio.h>
+#include<math.h>
+
+char ex[100],stack[100];
+int top=-1;
+
+void push(char ch)
+{
+	stack[++top]=ch;
+}
+
+char pop()
+{
+	return stack[top--];
+}
+
+int isoperand(char ch)
+{
+	return (ch>='0' && ch<='9');
+}
+
+void postfixeval()
+{
+	int i;
+	for(i=0;ex[i]!='\0';i++)
+	{
+		if(isoperand(ex[i]))
+		{
+			push(ex[i]);
+		}
+		else
+		{
+			int a,b,res;
+			char c;
+			c=pop();
+			b=c-'0';
+			c=pop();
+			a=c-'0';
+			switch(ex[i])
+			{
+				case '+': res=a+b;
+				          break;
+				case '-': res=a-b;
+				          break;
+				case '*': res=a*b;
+				          break;
+				case '/': res=a/b;
+				          break;
+				case '^': res=pow(a,b);
+				          break;
+				default: break;
+			}
+			c=res+'0';
+			push(c);
+		}
+	}
+	printf("%d",stack[top]-48);
+}
+
+int main()
+{
+	
+	printf("Enter postfix expression:");
+	scanf("%s",ex);
+	postfixeval();
+	return 0;
+}
